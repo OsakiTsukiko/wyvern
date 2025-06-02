@@ -14,6 +14,9 @@ pub fn build(b: *std.Build) void {
     });
     exe_mod.addAssemblyFile(b.path("src/boot.S"));
     exe_mod.addCSourceFile(.{ .file = b.path("src/kernel.c") });
+    exe_mod.addCSourceFiles(.{ .root = b.path("src"), .files = &[_][]const u8{
+        "core/io.c",
+    } });
 
     const exe = b.addExecutable(.{
         .name = "wyvern",
