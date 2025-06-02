@@ -14,7 +14,7 @@ export fn main() noreturn {
     c.drawRect(100, 100, 200, 200, 0x03, 0x03);
 
     const text = "Hello Kernel!";
-    c.drawString(120, 120, text, 0x03);
+    c.drawString(120, 120, text, 0x03, 4);
     c.drawLine(0, 0, 1080, 720, 2);
 
     var buff: [1024]u8 = undefined;
@@ -26,6 +26,6 @@ export fn main() noreturn {
         buff[index] = cr;
         buff[index + 1] = 0;
         index += 1;
-        c.drawString(120, 130, &buff, 3);
+        c.drawString(120, 160, &buff, 3, 4);
     }
 }
