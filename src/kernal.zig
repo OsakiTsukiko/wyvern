@@ -3,6 +3,8 @@ const c = @cImport({
     @cInclude("core/fb.h");
 });
 
+const std = @import("std");
+
 export fn main() noreturn {
     c.uart_init();
     c.fb_init();
@@ -13,6 +15,7 @@ export fn main() noreturn {
 
     const text = "Hello Kernel!";
     c.drawString(120, 120, text, 0x03);
+    c.drawLine(0, 0, 1080, 720, 2);
 
     var buff: [1024]u8 = undefined;
     var index: usize = 0;
@@ -23,6 +26,6 @@ export fn main() noreturn {
         buff[index] = cr;
         buff[index + 1] = 0;
         index += 1;
-        c.drawString(120, 130, &buff, 0x03);
+        c.drawString(120, 130, &buff, 3);
     }
 }
