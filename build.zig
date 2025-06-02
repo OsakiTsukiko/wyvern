@@ -28,4 +28,20 @@ pub fn build(b: *std.Build) void {
     exe.setLinkerScript(b.path("src/link.ld"));
 
     b.installArtifact(exe);
+
+    const run_cmd = b.addSystemCommand(&[_][]const u8{
+        "qemu-system-aarch64",
+        "-M",
+        "raspi4b",
+        "-m",
+        "2G",
+        "-serial",
+        "stdio",
+        "-kernel",
+    });
+    run_cmd.addFileArg(exe.getEmittedBin());
+    run_cmd.step.dependOn(b.getInstallStep());
+
+    const run_step = b.step("qemu", "Run the kernel in qemu.");
+    run_step.dependOn(&run_cmd.step);
 }
