@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/3f0e0257-1262-4d28-a4f3-90d4ada68868)
+
 # 🐍🪽 Wyvern
 Hobby Operating System O-O
 
