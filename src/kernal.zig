@@ -1,11 +1,28 @@
 const c = @cImport({
     @cInclude("core/io.h");
+    @cInclude("core/fb.h");
 });
 
 export fn main() noreturn {
     c.uart_init();
-    c.uart_puts("Hello, kernel Wordl! (from zig-ish)\n");
+    c.fb_init();
+
+    c.uart_puts("Hello Kernel! (from zig-ish)\n");
+
+    c.drawRect(100, 100, 200, 200, 0x03, 0x03);
+
+    const text = "Hello Kernel!";
+    c.drawString(120, 120, text, 0x03);
+
+    var buff: [1024]u8 = undefined;
+    var index: usize = 0;
+
     while (true) {
-        c.uart_putc(c.uart_getc());
+        const cr = c.uart_getc();
+        c.uart_putc(cr);
+        buff[index] = cr;
+        buff[index + 1] = 0;
+        index += 1;
+        c.drawString(120, 130, &buff, 0x03);
     }
 }

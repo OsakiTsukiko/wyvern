@@ -42,7 +42,7 @@ enum
 };
 
 // A Mailbox message with set clock rate of PL011 to 3MHz tag
-volatile unsigned int  __attribute__((aligned(16))) mbox[9] = {
+volatile unsigned int  __attribute__((aligned(16))) uart_mbox[9] = {
     9*4, 0, 0x38002, 12, 8, 2, 3000000, 0 ,0
 };
 
@@ -74,7 +74,7 @@ void uart_init()
 	// For Raspi3 and 4 the UART_CLOCK is system-clock dependent by default.
 	// Set it to 3Mhz so that we can consistently set the baud rate
 	// UART_CLOCK = 30000000;
-	unsigned int r = (((unsigned int)(&mbox) & ~0xF) | 8);
+	unsigned int r = (((unsigned int)(&uart_mbox) & ~0xF) | 8);
 	// wait until we can talk to the VC
 	while ( mmio_read(MBOX_STATUS) & 0x80000000 ) { }
 	// send our message to property channel and wait for the response
@@ -116,5 +116,3 @@ void uart_puts(const char* str)
 	for (size_t i = 0; str[i] != '\0'; i ++)
 		uart_putc((unsigned char)str[i]);
 }
-
-

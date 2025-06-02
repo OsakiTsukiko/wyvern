@@ -18,6 +18,8 @@ pub fn build(b: *std.Build) void {
     // exe_mod.addCSourceFile(.{ .file = b.path("src/kernel.c") });
     exe_mod.addCSourceFiles(.{ .root = b.path("src"), .files = &[_][]const u8{
         "core/io.c",
+        "core/mb.c",
+        "core/fb.c",
     } });
 
     const exe = b.addExecutable(.{
