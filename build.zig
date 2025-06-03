@@ -23,7 +23,7 @@ pub fn build(b: *std.Build) void {
     } });
 
     const exe = b.addExecutable(.{
-        .name = "wyvern",
+        .name = "kernel8.img",
         .root_module = exe_mod,
     });
     exe.addIncludePath(b.path("src/"));
